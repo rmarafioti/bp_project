@@ -1,0 +1,1 @@
+select * from {{ source('bp_readings', 'bp_readings_raw') }}

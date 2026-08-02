@@ -1,0 +1,37 @@
+version: 2
+
+sources:
+  - name: bp_readings
+    description: Raw blood pressure data synced live from Google Sheets via BigQuery external table
+    database: bpproject-504300
+    schema: bp_dev
+    tables:
+      - name: bp_readings_raw
+        description: Live external table reading directly from the BP tracking Google Sheet
+        columns:
+          - name: person_id
+            data_type: int64
+          - name: person_name
+            data_type: string
+          - name: bp_reading_date
+            data_type: date
+          - name: month
+            data_type: int64
+          - name: year
+            data_type: int64
+          - name: time_of_day
+            data_type: string
+          - name: systolic_reading
+            data_type: int64
+          - name: diastolic_reading
+            data_type: int64
+          - name: bp_reading
+            data_type: string
+          - name: systolic_change_from_previous_day
+            data_type: int64
+          - name: diastolic_change_from_previous_day
+            data_type: int64
+          - name: bp_category
+            data_type: string
+          - name: general_mood
+            data_type: string
