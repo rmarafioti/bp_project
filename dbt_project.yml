@@ -29,5 +29,8 @@ clean-targets: # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   bp_project:
+    +persist_docs:
+      relation: true
+      columns: true
     staging:
       +materialized: view
