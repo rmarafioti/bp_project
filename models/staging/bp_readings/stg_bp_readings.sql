@@ -2,10 +2,7 @@ select
     person_id,
     -- person_name will be in dim_person 
     person_name,
-    bp_reading_date,
-    -- month and date will be derived from dim_date
-    month,
-    year,
+    bp_reading_date as day_date,
     time_of_day,
     systolic_reading,
     diastolic_reading,

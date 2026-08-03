@@ -12,9 +12,9 @@ final as (
 
     select
         date_day,
-        extract(month from date_day) as month_number,
+        extract(month from date_day) as month,
         format_date('%B', date_day) as month_name,
-        extract(year from date_day) as year_number,
+        extract(year from date_day) as year,
     from date_spine
 
 )

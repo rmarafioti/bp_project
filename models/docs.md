@@ -26,10 +26,10 @@ The bp category in which a daily bp reading falls, such as 'Normal', 'Elevated',
 The complete daily bp reading 'systolic reading' / 'diastolic reading' (e.g. '120 / 80')
 {% enddocs %}
 
-{% docs bp_reading_date %}
-The date in which a bp reading was recorded
-{% enddocs %}
-
 {% docs general_mood %}
 The general mood of the person on the day the bp reading was recorded, conformed to 'Relaxed', 'Content', and 'Anxious'
+{% enddocs %}
+
+{% docs bp_reading_key %}
+Surrogate key made up of the person_id and the day_date
 {% enddocs %}
