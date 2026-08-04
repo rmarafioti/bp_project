@@ -35,3 +35,26 @@ sources:
             data_type: string
           - name: general_mood
             data_type: string
+
+  - name: perosn_information
+    description: Raw person data synced live from Google Sheets via BigQuery external table
+    database: bpproject-504300
+    schema: bp_dev
+    tables:
+      - name: person_information_raw
+        description: Live external table reading directly from the BP tracking Google Sheet
+        columns:
+          - name: person_id
+            data_type: int64
+          - name: person_first_name
+            data_type: string
+          - name: person_last_name
+            data_type: string
+          - name: perosn_display_name
+            data_type: string
+          - name: date_of_birth
+            data_type: date
+          - name: gender
+            data_type: string
+          - name: height
+            data_type: string
