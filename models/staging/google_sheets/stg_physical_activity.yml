@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_bp_readings
+  - name: stg_physical_activity
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
@@ -16,22 +16,16 @@ models:
       - name: time_of_day
         data_type: string
         description: '{{ doc("time_of_day") }}'
-      - name: systolic_reading
-        data_type: int64
+      - name: weight
+        data_type: float64
         description: '{{ doc("systolic_reading") }}'
-      - name: diastolic_reading
+      - name: average_heart_rate
         data_type: int64
-        description: '{{ doc("diastolic_reading") }}'
-      - name: bp_reading
+      - name: physical_activity
         data_type: string
-        description: '{{ doc("bp_reading") }}'
-      - name: systolic_change_from_previous_day
+      - name: physical_activity_distance
+        data_type: float64
+      - name: calories_burned
         data_type: int64
-      - name: diastolic_change_from_previous_day
-        data_type: int64
-      - name: bp_category
+      - name: physical_activity_intensity
         data_type: string
-        description: '{{ doc("bp_category") }}'
-      - name: general_mood
-        data_type: string
-        description: '{{ doc("general_mood") }}'

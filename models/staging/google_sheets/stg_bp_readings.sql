@@ -1,7 +1,5 @@
 select
     person_id,
-    -- person_name will be in dim_person 
-    person_name,
     bp_reading_date as day_date,
     time_of_day,
     systolic_reading,

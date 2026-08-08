@@ -1,0 +1,38 @@
+[
+  {
+    "mode": "NULLABLE",
+    "name": "person_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "person_first_name",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "person_last_name",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "person_display_name",
+    "type": "STRING"
+  },
+  {
+    "description": "%E4Y-%m-%d",
+    "mode": "NULLABLE",
+    "name": "date_of_birth",
+    "type": "DATE"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "gender_",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "height",
+    "type": "STRING"
+  }
+]
