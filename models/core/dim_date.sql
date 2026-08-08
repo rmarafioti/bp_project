@@ -11,7 +11,8 @@ with date_spine as (
 final as (
 
     select
-        date_day,
+       {{ dbt_utils.generate_surrogate_key(['cast(date_day as date)']) }} as date_key,
+        cast(date_day as date) as date_day,
         extract(month from date_day) as month,
         format_date('%B', date_day) as month_name,
         extract(year from date_day) as year,

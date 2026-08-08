@@ -1,6 +1,6 @@
 select
     person_id,
-    bp_reading_date as day_date,
+    bp_reading_date as date_day,
     time_of_day,
     systolic_reading,
     diastolic_reading,

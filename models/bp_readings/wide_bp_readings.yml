@@ -1,21 +1,25 @@
 version: 2
 
 models:
-  - name: stg_bp_readings
-    data_tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - person_id
-            - date_day
+  - name: wide_bp_readings
     columns:
-      - name: person_id
-        data_type: int64
-        description: '{{ doc("person_id") }}'
+      - name: bp_reading_key
+        data_type: string
+        description: '{{ doc("bp_reading_key") }}'
       - name: day_date
         data_type: date
+      - name: month
+        data_type: int64
+      - name: month_name
+        data_type: string
+      - name: year
+        data_type: int64
       - name: time_of_day
         data_type: string
         description: '{{ doc("time_of_day") }}'
+      - name: general_mood
+        data_type: string
+        description: '{{ doc("general_mood") }}'
       - name: systolic_reading
         data_type: int64
         description: '{{ doc("systolic_reading") }}'
@@ -25,13 +29,10 @@ models:
       - name: bp_reading
         data_type: string
         description: '{{ doc("bp_reading") }}'
+      - name: bp_category
+        data_type: string
+        description: '{{ doc("bp_category") }}'
       - name: systolic_change_from_previous_day
         data_type: int64
       - name: diastolic_change_from_previous_day
         data_type: int64
-      - name: bp_category
-        data_type: string
-        description: '{{ doc("bp_category") }}'
-      - name: general_mood
-        data_type: string
-        description: '{{ doc("general_mood") }}'

@@ -34,3 +34,5 @@ models:
       columns: true
     staging:
       +materialized: view
+    bp_readings:
+      +materialized: view

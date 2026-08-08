@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: dim_person
+    columns:
+      - name: person_key
+        data_type: string
+        data_tests:
+          - unique
+          - not_null
+      - name: person_first_name
+        data_type: string
+      - name: person_last_name
+        data_type: string
+      - name: person_display_name
+        data_type: string
+      - name: date_of_birth
+        data_type: date
+      - name: gender
+        data_type: string
+      - name: height
+        data_type: string
