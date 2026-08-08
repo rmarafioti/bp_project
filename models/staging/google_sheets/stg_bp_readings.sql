@@ -20,4 +20,4 @@ select
         else 'Check Reading'
     end as bp_category,
     general_mood,
-from {{ source('bp_readings', 'bp_readings_raw') }}
+from {{ source('google_sheets', 'bp_readings_raw') }}

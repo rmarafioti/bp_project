@@ -1,8 +1,8 @@
 version: 2
 
 sources:
-  - name: bp_readings
-    description: Raw blood pressure data synced live from Google Sheets via BigQuery external table
+  - name: google_sheets
+    description: "..."
     database: bpproject-504300
     schema: bp_dev
     tables:
@@ -35,12 +35,6 @@ sources:
             data_type: string
           - name: general_mood
             data_type: string
-
-  - name: perosn_information
-    description: Raw person data synced live from Google Sheets via BigQuery external table
-    database: bpproject-504300
-    schema: bp_dev
-    tables:
       - name: person_information_raw
         description: Live external table reading directly from the BP tracking Google Sheet
         columns:
