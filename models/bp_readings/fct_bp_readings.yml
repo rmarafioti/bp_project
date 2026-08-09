@@ -40,5 +40,7 @@ models:
         description: '{{ doc("bp_reading") }}'
       - name: systolic_change_from_previous_day
         data_type: int64
+        description: '{{ doc("systolic_change_from_previous_day") }}'
       - name: diastolic_change_from_previous_day
         data_type: int64
+        description: '{{ doc("diastolic_change_from_previous_day") }}'

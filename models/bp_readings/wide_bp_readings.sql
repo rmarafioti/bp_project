@@ -4,6 +4,7 @@ select
 
     dim_person.person_display_name,
     dim_person.date_of_birth,
+    dim_person.age,
     dim_person.gender,
     dim_person.height,
 

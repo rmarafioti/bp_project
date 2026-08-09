@@ -7,5 +7,6 @@ select
     physical_activity_          as physical_activity,
     physical_activity_distance_ as physical_activity_distance,
     calories_burned,
+    -- computed here
     physical_activity_intensity,
 from {{ source('google_sheets', 'physical_activity_raw') }}

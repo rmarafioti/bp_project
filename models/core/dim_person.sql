@@ -4,6 +4,7 @@ select
     person_last_name,
     person_display_name,
     date_of_birth,
+    age,
     gender,
     height,
 from {{ ref('stg_person_information')}}

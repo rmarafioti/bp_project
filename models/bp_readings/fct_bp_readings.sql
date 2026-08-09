@@ -8,4 +8,4 @@ select
     bp_reading,
     systolic_change_from_previous_day,
     diastolic_change_from_previous_day,
-from {{ ref('stg_bp_readings') }}
+from {{ ref('int_bp_readings') }}

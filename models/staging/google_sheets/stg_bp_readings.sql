@@ -5,9 +5,6 @@ select
     systolic_reading,
     diastolic_reading,
     concat(systolic_reading, ' / ', diastolic_reading) as bp_reading,
-    -- computed in the fact table
-    systolic_change_from_previous_day,
-    diastolic_change_from_previous_day,
     case 
         when systolic_reading > 180 or diastolic_reading > 120 then 'Hypertensive Crisis'
         when systolic_reading >= 140 or diastolic_reading >= 90 then 'Stage 2 Hypertension'
