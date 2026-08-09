@@ -7,6 +7,8 @@ models:
         data_type: int64
       - name: day_date
         data_type: date
+      - name: weight
+        data_type: float64
       - name: systolic_reading
         data_type: int64
       - name: diastolic_reading

@@ -16,6 +16,8 @@ models:
         data_type: string
       - name: height
         data_type: string
+      - name: weight
+        data_type: float64
       - name: day_date
         data_type: date
       - name: month

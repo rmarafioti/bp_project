@@ -8,6 +8,7 @@ select
     dim_person.gender,
     dim_person.height,
 
+    fct_table.weight,
     fct_table.date_day,
 
     dim_date.month,

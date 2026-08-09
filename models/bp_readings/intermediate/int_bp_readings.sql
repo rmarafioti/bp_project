@@ -22,6 +22,14 @@ previous_day_readings as (
 
 ),
 
+person_weight as (
+    select
+        person_id,
+        date_day,
+        weight,
+    from {{ ref('stg_physical_activity')}}
+),
+
 results as (
 
     select
@@ -31,12 +39,17 @@ results as (
         bp_readings.diastolic_reading,
         bp_readings.bp_reading,
 
+        person_weight.weight,
+
         bp_readings.systolic_reading - previous_day_readings.previous_systolic_reading      as systolic_change_from_previous_day,
         bp_readings.diastolic_reading - previous_day_readings.previous_diastolic_reading    as diastolic_change_from_previous_day,
     from bp_readings
     left join previous_day_readings
         on bp_readings.person_id = previous_day_readings.person_id
         and bp_readings.date_day = previous_day_readings.date_day
+    left join person_weight
+        on bp_readings.person_id = person_weight.person_id
+        and bp_readings.date_day = person_weight.date_day
 
 )
 

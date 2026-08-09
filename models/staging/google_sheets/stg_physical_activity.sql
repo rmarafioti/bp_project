@@ -1,12 +1,16 @@
 select
     person_id,
-    activity_date               as day_date,
+    activity_date                                           as date_day,
     time_of_day,
-    person_weight               as weight,
+    person_weight                                           as weight,
     average_heart_rate,
-    physical_activity_          as physical_activity,
-    physical_activity_distance_ as physical_activity_distance,
+    physical_activity_                                      as physical_activity,
+    physical_activity_distance_                             as physical_activity_distance,
     calories_burned,
-    -- computed here
-    physical_activity_intensity,
+    case
+        when average_heart_rate >= 150 then 'Max Intensity'
+        when average_heart_rate >= 124 then 'Vigorous Intensity'
+        when average_heart_rate >= 88 then 'Moderate Intensity'
+        else 'No Physical Intensity'
+    end                                                     as physical_activity_intensity,
 from {{ source('google_sheets', 'physical_activity_raw') }}
