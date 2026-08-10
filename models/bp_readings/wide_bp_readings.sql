@@ -2,6 +2,7 @@ select
     fct_table.bp_reading_key,
     fct_table.person_key,
 
+    dim_person.person_id,
     dim_person.person_display_name,
     dim_person.date_of_birth,
     dim_person.age,
