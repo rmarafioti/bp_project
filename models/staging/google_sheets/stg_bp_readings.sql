@@ -1,6 +1,7 @@
 select
     person_id,
     bp_reading_date as date_day,
+    extract(year from bp_reading_date) as year,
     time_of_day,
     systolic_reading,
     diastolic_reading,
@@ -8,7 +9,7 @@ select
     case 
         when systolic_reading > 180 or diastolic_reading > 120 then 'Hypertensive Crisis'
         when systolic_reading >= 140 or diastolic_reading >= 90 then 'Stage 2 Hypertension'
-        when systolic_reading >= 130 or diastolic_reading >= 80 and diastolic_reading < 90 then 'Stage 1 Hypertension'
+        when systolic_reading >= 130 or (diastolic_reading >= 80 and diastolic_reading < 90) then 'Stage 1 Hypertension'
         when systolic_reading < 120 and diastolic_reading >= 80 and diastolic_reading < 90 then 'Isolated Diastolic Hypertension'
         when systolic_reading >= 120 and systolic_reading < 130 and diastolic_reading < 80 then 'Elevated'
         when systolic_reading < 120 and diastolic_reading < 80 then 'Normal'
