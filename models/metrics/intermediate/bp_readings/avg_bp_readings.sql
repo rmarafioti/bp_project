@@ -38,7 +38,7 @@ full_reading as (
         case 
             when average_systolic_reading > 180 or average_diastolic_reading > 120 then 'Hypertensive Crisis'
             when average_systolic_reading >= 140 or average_diastolic_reading >= 90 then 'Stage 2 Hypertension'
-            when average_systolic_reading >= 130 or average_diastolic_reading >= 80 and average_diastolic_reading < 90 then 'Stage 1 Hypertension'
+            when average_systolic_reading >= 130 or (average_diastolic_reading >= 80 and average_diastolic_reading < 90) then 'Stage 1 Hypertension'
             when average_systolic_reading < 120 and average_diastolic_reading >= 80 and average_diastolic_reading < 90 then 'Isolated Diastolic Hypertension'
             when average_systolic_reading >= 120 and average_systolic_reading < 130 and average_diastolic_reading < 80 then 'Elevated'
             when average_systolic_reading < 120 and average_diastolic_reading < 80 then 'Normal'

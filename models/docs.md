@@ -42,6 +42,10 @@ The person's description of the recorded physical activity Ex. 'Walking', 'Runni
 The distance of the person's recorded physical activity in miles, where distance applies or can be null
 {% enddocs %}
 
+{% docs physical_activity_duration %}
+The amount of time of the person's recorded physical activity in hours
+{% enddocs %}
+
 {% docs physical_activity_intensity %}
 The intensity of the recorded daily physical activity. Either Moderate, Vigorous or Max Intensity
 {% enddocs %}

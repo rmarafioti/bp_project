@@ -28,6 +28,9 @@ models:
       - name: physical_activity_distance
         data_type: float64
         description: '{{ doc("physical_activity") }}'
+      - name: physical_activity_duration
+        data_type: float64
+        description: '{{ doc("physical_activity_duration") }}'
       - name: calories_burned
         data_type: int64
       - name: physical_activity_intensity

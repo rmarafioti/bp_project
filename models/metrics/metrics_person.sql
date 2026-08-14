@@ -12,6 +12,7 @@
         dim_person.age,
         dim_person.gender,
         dim_person.height,
+        dim_person.year,
 
         metric.metric_category,
         metric.metric_subcategory,
