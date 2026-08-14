@@ -1,67 +1,89 @@
-with activity as (
+with daily_activity as (
 
     select
-        activity.person_key,
-        count(*)                                    as total_physical_activity_count,
-        sum(activity.average_heart_rate)            as total_heart_rate,
-        sum(activity.physical_activity_distance)    as total_physical_activity_distance,
-        sum(activity.physical_activity_duration)    as total_physical_activity_duration,
-    from {{ ref('fct_physical_activity') }} as activity
-    group by 1
-
-),
-
-
-activity_by_month as (
-
-    select
-        activity.person_key,
+        fct_activity.person_key,
+        fct_activity.date_day,
+        
         dim_date.month_name,
-        count(*)                                    as monthly_physical_activity_count,
-        sum(activity.average_heart_rate)            as monthly_heart_rate,
-        sum(activity.physical_activity_distance)    as monthly_physical_activity_distance,
-        sum(activity.physical_activity_duration)    as monthly_physical_activity_duration,
-    from {{ ref('fct_physical_activity') }} as activity
-    left join {{ ref('dim_date')}} as dim_date
-        on activity.date_key = dim_date.date_key
-    group by 1,2
+
+        fct_activity.physical_activity_distance,
+        fct_activity.physical_activity_duration,
+
+        dim_activity.physical_activity_intensity
+
+
+    from {{ ref('fct_physical_activity') }} as fct_activity
+    left join {{ ref('dim_physical_activity')}} as dim_activity
+        on fct_activity.physical_activity_key = dim_activity.physical_activity_key
+    left join {{ ref('dim_date') }} as dim_date
+        on fct_activity.date_day = dim_date.date_day
 
 ),
 
-avg_heart_rate as (
+daily_moderate_intensity as (
+
+    select * from daily_activity
+    where physical_activity_intensity = 'Moderate Intensity'
+
+),
+
+daily_vigorous_intensity as (
+
+    select * from daily_activity
+    where physical_activity_intensity in ('Vigorous Intensity', 'Max Intensity')
+
+),
+
+monthly_activity as (
 
     select
         person_key,
         month_name,
-        monthly_heart_rate,
-        monthly_physical_activity_count,
-        monthly_physical_activity_distance,
-        monthly_physical_activity_duration,
-        round(
-            safe_divide(
-                monthly_heart_rate,
-                monthly_physical_activity_count), 1
-        )  as avg_monthly_heart_rate,
-    from activity_by_month
+        count(*)                           as monthly_physical_activity_count,
+        sum(physical_activity_distance)    as monthly_physical_activity_distance,
+        sum(physical_activity_duration)    as monthly_physical_activity_duration,
+    from daily_activity
+    group by 1,2 
 
 ),
 
-monthly_physical_intensity as (
+monthly_moderate_activity as (
 
     select
         person_key,
         month_name,
-        monthly_physical_activity_count,
-        monthly_heart_rate,
-        monthly_physical_activity_distance,
-        monthly_physical_activity_duration,
-        case
-            when avg_monthly_heart_rate >= 150 then 'Max Intensity'
-            when avg_monthly_heart_rate >= 124 then 'Vigorous Intensity'
-            when avg_monthly_heart_rate >= 88 then 'Moderate Intensity'
-            else 'No Physical Intensity'
-        end as avg_monthly_physical_intensity,
-    from avg_heart_rate
+        count(*)                           as monthly_moderate_physical_activity_count,
+        sum(physical_activity_distance)    as monthly_moderate_physical_activity_distance,
+        sum(physical_activity_duration)    as monthly_moderate_physical_activity_duration,
+    from daily_moderate_intensity
+    group by 1, 2
+
+),
+
+monthly_vigorous_activity as (
+
+    select
+        person_key,
+        month_name,
+        count(*)                           as monthly_vigorous_physical_activity_count,
+        sum(physical_activity_distance)    as monthly_vigorous_physical_activity_distance,
+        sum(physical_activity_duration)    as monthly_vigorous_physical_activity_duration,
+    from daily_vigorous_intensity
+    group by 1, 2
+
+),
+
+
+overall_activity as (
+
+    select
+        person_key,
+        count(*)                            as total_physical_activity_count,
+        sum(average_heart_rate)             as total_heart_rate,
+        sum(physical_activity_distance)     as total_physical_activity_distance,
+        sum(physical_activity_duration)     as total_physical_activity_duration,
+    from {{ ref('fct_physical_activity') }}
+    group by 1
 
 ),
 
@@ -77,7 +99,7 @@ overall_activity_count as (
         total_physical_activity_count       as metric_value,
         cast(null as string)                as metric_label,
         cast(null as int64)                 as has_met_goal
-    from activity
+    from overall_activity
          
 ),
 
@@ -93,11 +115,10 @@ overall_activity_hours as (
         total_physical_activity_duration    as metric_value,
         cast(null as string)                as metric_label,
         cast(null as int64)                 as has_met_goal
-    from activity
+    from overall_activity
          
 ),
 
--- the amount of workouts per month
 monthly_activity_count as (
 
     select
@@ -110,7 +131,7 @@ monthly_activity_count as (
         monthly_physical_activity_count     as metric_value,
         cast(null as string)                as metric_label,
         cast(null as int64)                 as has_met_goal
-    from monthly_physical_intensity
+    from monthly_activity
          
 ),
 
@@ -126,12 +147,10 @@ monthly_activity_hours as (
         monthly_physical_activity_duration  as metric_value,
         cast(null as string)                as metric_label,
         cast(null as int64)                 as has_met_goal
-    from monthly_physical_intensity
+    from monthly_activity
          
 ),
 
--- first we need to add up the workouts with an avg hr moderate intensity by date
--- then we calculate the number of hours at that intensity rather than the avg monthly heart rate first
 monthly_moderate_intensity_hours as (
 
     select
@@ -141,16 +160,13 @@ monthly_moderate_intensity_hours as (
         'Moderate Intensity Total Hours'    as metric_name,
         month_name                          as metric_period,
         cast(null as string)                as metric_reading,
-        monthly_physical_activity_duration  as metric_value,
+        monthly_moderate_physical_activity_duration  as metric_value,
         cast(null as string)                as metric_label,
-        if(monthly_physical_activity_duration >= 10, 1, 0) as has_met_goal
-    from monthly_physical_intensity
-    where avg_monthly_physical_intensity = 'Moderate Intensity'
+        if(monthly_moderate_physical_activity_duration >= 10, 1, 0) as has_met_goal
+    from monthly_moderate_activity
          
 ),
 
--- first we need to add up the workouts with an avg hr vigorous intensity by date
--- then we calculate the number of hours at that intensity rather than the avg monthly heart rate first
 monthly_vigorous_intensity_hours as (
 
     select
@@ -160,11 +176,10 @@ monthly_vigorous_intensity_hours as (
         'Vigorous Intensity Total Hours'    as metric_name,
         month_name                          as metric_period,
         cast(null as string)                as metric_reading,
-        monthly_physical_activity_duration    as metric_value,
+        monthly_vigorous_physical_activity_duration    as metric_value,
         cast(null as string)                as metric_label,
-        if(monthly_physical_activity_duration >= 5, 1, 0) as has_met_goal
-    from monthly_physical_intensity
-    where avg_monthly_physical_intensity = 'Vigorous Intensity'
+        if(monthly_vigorous_physical_activity_duration >= 5, 1, 0) as has_met_goal
+    from monthly_vigorous_activity
          
 )
 

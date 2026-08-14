@@ -50,6 +50,10 @@ The amount of time of the person's recorded physical activity in hours
 The intensity of the recorded daily physical activity. Either Moderate, Vigorous or Max Intensity
 {% enddocs %}
 
+{% docs physical_activity_key %}
+Surrogate key made up of the person_id and the day_date
+{% enddocs %}
+
 {% docs systolic_change_from_previous_day %}
 The numerical change between the daily systolic reading and the previous day's systolic reading
 {% enddocs %}

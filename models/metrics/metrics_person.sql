@@ -1,5 +1,6 @@
 {% for metric_model in [
-        "avg_bp_readings",
+        "avg_overall_bp_readings",
+        "physical_activity_counts_and_hours",
     ]
 %}
 
