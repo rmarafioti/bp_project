@@ -2,19 +2,17 @@ with bp_readings as (
     
     select
         person_key,
-        person_id,
         count(*)                as total_bp_readings,
         sum(systolic_reading)   as total_systolic_readings,
         sum(diastolic_reading)  as total_diastolic_readings,
     from {{ ref('fct_bp_readings')}}
-    group by 1,2
+    group by 1
 
 ),
 
 avg_readings as (
     select
         person_key,
-        person_id,
         round(
             safe_divide(
                 total_systolic_readings,
@@ -33,7 +31,6 @@ full_reading as (
 
     select
         person_key,
-        person_id,
         concat(average_systolic_reading, ' / ', average_diastolic_reading) as bp_reading,
         case 
             when average_systolic_reading > 180 or average_diastolic_reading > 120 then 'Hypertensive Crisis'
@@ -52,7 +49,6 @@ metric_avg_systolic_reading as (
 
     select
         person_key,
-        person_id,
         'BP Readings'               as metric_category,
         'Systolic'                  as metric_subcategory,
         'Average Overall Reading'   as metric_name,
@@ -69,7 +65,6 @@ metric_avg_diastolic_reading as (
 
     select
         person_key,
-        person_id,
         'BP Readings'               as metric_category,
         'Diastolic'                 as metric_subcategory,
         'Average Overall Reading'   as metric_name,
@@ -86,7 +81,6 @@ metric_avg_overall_reading as (
 
     select
         person_key,
-        person_id,
         'BP Readings'               as metric_category,
         'Complete Reading'          as metric_subcategory,
         'Average Overall Reading'   as metric_name,
