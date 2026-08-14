@@ -101,4 +101,4 @@ select * from metric_avg_diastolic_reading
 
 union all
 
-select* from metric_avg_overall_reading
+select * from metric_avg_overall_reading
