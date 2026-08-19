@@ -11,6 +11,7 @@ select
     total_diastolic_readings,
     total_systolic_absolute_change_from_previous_day,
     total_diastolic_absolute_change_from_previous_day,
+    normal_bp_category_count,
     most_common_monthly_bp_category,
     most_common_monthly_bp_category_count,
 from {{ ref('int_monthly_bp_readings')}} 

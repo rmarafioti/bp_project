@@ -6,8 +6,21 @@ with bp_category_counts as (
         year,
         bp_category,
         count(bp_category)         as bp_category_count,
-
     from {{ ref('stg_bp_readings')}}
+    group by 1,2,3,4 
+
+),
+
+normal_counts as (
+
+    select
+        person_id,
+        month,
+        year,
+        bp_category,
+        count(bp_category)         as normal_bp_category_count,
+    from {{ ref('stg_bp_readings')}}
+    where bp_category = 'Normal'
     group by 1,2,3,4 
 
 ),
@@ -15,12 +28,18 @@ with bp_category_counts as (
 most_common_category as (
 
     select
-        person_id,
-        month,
-        year,
-        bp_category,
-        bp_category_count,
-    from bp_category_counts
+        bp_category_counts.person_id,
+        bp_category_counts.month,
+        bp_category_counts.year,
+        bp_category_counts.bp_category          as most_common_monthly_bp_category,
+        bp_category_counts.bp_category_count    as most_common_monthly_bp_category_count,
+
+        normal_counts.normal_bp_category_count,
+    from bp_category_counts 
+    left join normal_counts
+        on bp_category_counts.person_id = normal_counts.person_id
+        and bp_category_counts.month = normal_counts.month
+        and bp_category_counts.year = normal_counts.year
     qualify row_number() over (
         partition by
             person_id,
@@ -61,8 +80,9 @@ select
     reading_calcs.total_systolic_absolute_change_from_previous_day,
     reading_calcs.total_diastolic_absolute_change_from_previous_day,
 
-    category_calcs.bp_category          as most_common_monthly_bp_category,
-    category_calcs.bp_category_count    as most_common_monthly_bp_category_count, 
+    category_calcs.normal_bp_category_count,
+    category_calcs.most_common_monthly_bp_category,
+    category_calcs.most_common_monthly_bp_category_count, 
 from bp_readings as reading_calcs
 left join most_common_category as category_calcs
     on reading_calcs.person_id = category_calcs.person_id

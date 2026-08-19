@@ -36,6 +36,7 @@ select
     fct_table.total_diastolic_readings,
     fct_table.total_systolic_absolute_change_from_previous_day,
     fct_table.total_diastolic_absolute_change_from_previous_day,
+    fct_table.normal_bp_category_count,
     fct_table.most_common_monthly_bp_category,
     fct_table.most_common_monthly_bp_category_count,
 
