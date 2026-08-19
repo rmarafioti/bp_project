@@ -8,10 +8,9 @@ with date_spine as (
 
 ),
 
-final as (
+date_cleaned as (
 
     select
-       {{ dbt_utils.generate_surrogate_key(['cast(date_day as date)']) }} as date_key,
         cast(date_day as date) as date_day,
         extract(month from date_day) as month,
         format_date('%B', date_day) as month_name,
@@ -20,4 +19,11 @@ final as (
 
 )
 
-select * from final
+select
+    {{ dbt_utils.generate_surrogate_key(['date_day']) }}        as date_key,
+    {{ dbt_utils.generate_surrogate_key(['month', 'year']) }}   as month_key,
+    date_day,
+    month,
+    month_name,
+    year,
+from date_cleaned

@@ -1,0 +1,16 @@
+select
+    {{ dbt_utils.generate_surrogate_key(['person_id', 'year']) }}       as person_key,
+    {{ dbt_utils.generate_surrogate_key(['month', 'year']) }}           as month_key,
+    person_id,
+    month,
+    year,
+    bp_reading_count,
+    weight_count,
+    total_weight,
+    total_systolic_readings,
+    total_diastolic_readings,
+    total_systolic_absolute_change_from_previous_day,
+    total_diastolic_absolute_change_from_previous_day,
+    most_common_monthly_bp_category,
+    most_common_monthly_bp_category_count,
+from {{ ref('int_monthly_bp_readings')}} 

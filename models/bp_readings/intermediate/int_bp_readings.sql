@@ -4,6 +4,7 @@ bp_readings as (
     select
         person_id,
         date_day,
+        month,
         year,
         systolic_reading,
         diastolic_reading,
@@ -17,7 +18,6 @@ previous_day_readings as (
     select
         person_id,
         date_day,
-        year,
         lag(systolic_reading) over (order by date_day)  as previous_systolic_reading,
         lag(diastolic_reading) over (order by date_day) as previous_diastolic_reading,
     from bp_readings
@@ -37,7 +37,8 @@ results as (
     select
         bp_readings.person_id,
         bp_readings.date_day,
-        previous_day_readings.year,
+        bp_readings.month,
+        bp_readings.year,
         bp_readings.systolic_reading,
         bp_readings.diastolic_reading,
         bp_readings.bp_reading,

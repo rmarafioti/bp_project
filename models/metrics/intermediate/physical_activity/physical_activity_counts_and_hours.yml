@@ -9,6 +9,7 @@ models:
             - metric_subcategory
             - metric_name
             - metric_period
+            - metric_value
     columns:
       - name: person_key
         data_type: string

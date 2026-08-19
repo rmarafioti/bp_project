@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: int_monthly_bp_readings
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - person_id
+            - month
+            - year
+    columns:
+      - name: person_id
+        data_type: int64
+      - name: month
+        data_type: int64
+      - name: year
+        data_type: int64
+      - name: bp_reading_count
+        data_type: int64
+      - name: weight_count
+        data_type: float64
+      - name: total_weight
+        data_type: float64
+      - name: total_systolic_readings
+        data_type: int64
+      - name: total_diastolic_readings
+        data_type: int64
+      - name: total_systolic_absolute_change_from_previous_day
+        data_type: int64
+      - name: total_diastolic_absolute_change_from_previous_day
+        data_type: int64
+      - name: most_common_monthly_bp_category
+        data_type: string
+      - name: most_common_monthly_bp_category_count
+        data_type: int64

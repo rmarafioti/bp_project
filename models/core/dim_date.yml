@@ -3,11 +3,15 @@ version: 2
 models:
   - name: dim_date
     columns:
+      - name: date_key
+        data_type: string
       - name: date_day
         data_type: date
         data_tests:
           - unique
           - not_null
+      - name: month_key
+        data_type: string
       - name: month
         data_type: int64
       - name: month_name
