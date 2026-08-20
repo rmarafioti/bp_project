@@ -15,6 +15,8 @@ date_cleaned as (
         extract(month from date_day) as month,
         format_date('%B', date_day) as month_name,
         extract(year from date_day) as year,
+        cast(date_trunc(date_day, week(sunday)) as date) as week_start_date,
+        cast(date_add(date_trunc(date_day, week(sunday)), interval 6 day) as date) as week_end_date,
     from date_spine
 
 )
@@ -26,4 +28,6 @@ select
     month,
     month_name,
     year,
+    week_start_date,
+    week_end_date,
 from date_cleaned
