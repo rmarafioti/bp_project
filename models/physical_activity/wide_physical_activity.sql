@@ -11,6 +11,7 @@ select
 
     fct_table.weight,
     fct_table.date_day,
+    fct_table.time_of_day,
 
     dim_date.month,
     dim_date.month_name,

@@ -1,7 +1,8 @@
 {% for metric_model in [
         "avg_overall_bp_readings",
         "avg_overall_bp_by_time_of_day",
-        "physical_activity_counts_and_hours",
+        "physical_activity_overall",
+        "physical_activity_by_month",
     ]
 %}
 

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: physical_activity_counts_and_hours
+  - name: physical_activity_overall
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:

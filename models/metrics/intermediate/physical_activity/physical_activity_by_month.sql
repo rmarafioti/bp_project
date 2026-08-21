@@ -8,7 +8,8 @@ with daily_activity as (
 
         fct_activity.physical_activity_distance,
         fct_activity.physical_activity_duration,
-        fct_activity.physical_activity_intensity
+        fct_activity.physical_activity_intensity,
+        fct_activity.calories_burned,
 
     from {{ ref('fct_physical_activity') }} as fct_activity
     left join {{ ref('dim_date') }} as dim_date
@@ -35,9 +36,10 @@ monthly_activity as (
     select
         person_key,
         month_name,
-        count(*)                           as monthly_physical_activity_count,
-        sum(physical_activity_distance)    as monthly_physical_activity_distance,
-        sum(physical_activity_duration)    as monthly_physical_activity_duration,
+        count(*)                            as monthly_physical_activity_count,
+        sum(physical_activity_distance)     as monthly_physical_activity_distance,
+        sum(physical_activity_duration)     as monthly_physical_activity_duration,
+        sum(calories_burned)                as monthly_calories_burned
     from daily_activity
     group by 1,2 
 
@@ -69,49 +71,35 @@ monthly_vigorous_activity as (
 
 ),
 
-
-overall_activity as (
-
-    select
-        person_key,
-        count(*)                            as total_physical_activity_count,
-        sum(average_heart_rate)             as total_heart_rate,
-        sum(physical_activity_distance)     as total_physical_activity_distance,
-        sum(physical_activity_duration)     as total_physical_activity_duration,
-    from {{ ref('fct_physical_activity') }}
-    group by 1
-
-),
-
-overall_activity_count as (
+monthly_activity_distance as (
 
     select
         person_key,
         'Physical Activity'                 as metric_category,
-        'Overall'                           as metric_subcategory,
-        'Total Workout Count'               as metric_name,
+        'Monthly'                           as metric_subcategory,
+        'Total Workout Distance'            as metric_name,
         cast(null as string)                as metric_period,
         cast(null as string)                as metric_reading,
-        total_physical_activity_count       as metric_value,
+        monthly_physical_activity_distance  as metric_value,
         cast(null as string)                as metric_label,
         cast(null as int64)                 as has_met_goal
-    from overall_activity
+    from monthly_activity
          
 ),
 
-overall_activity_hours as (
+monthly_calories_burned as (
 
     select
         person_key,
         'Physical Activity'                 as metric_category,
-        'Overall'                           as metric_subcategory,
-        'Total Workout Hours'               as metric_name,
+        'Monthly'                           as metric_subcategory,
+        'Total Calories Burned'             as metric_name,
         cast(null as string)                as metric_period,
         cast(null as string)                as metric_reading,
-        total_physical_activity_duration    as metric_value,
+        monthly_calories_burned             as metric_value,
         cast(null as string)                as metric_label,
         cast(null as int64)                 as has_met_goal
-    from overall_activity
+    from monthly_activity
          
 ),
 
@@ -179,11 +167,11 @@ monthly_vigorous_intensity_hours as (
          
 )
 
-select * from overall_activity_count
+select * from monthly_activity_distance
 
 union all
 
-select * from overall_activity_hours
+select * from monthly_calories_burned
 
 union all
 
