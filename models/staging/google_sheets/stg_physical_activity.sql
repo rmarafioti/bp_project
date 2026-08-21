@@ -1,7 +1,6 @@
 select
     person_id,
     activity_date                                           as date_day,
-    extract(year from activity_date)                        as year,
     time_of_day,
     person_weight                                           as weight,
     average_heart_rate,

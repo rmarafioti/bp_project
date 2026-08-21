@@ -8,13 +8,9 @@ with daily_activity as (
 
         fct_activity.physical_activity_distance,
         fct_activity.physical_activity_duration,
-
-        dim_activity.physical_activity_intensity
-
+        fct_activity.physical_activity_intensity
 
     from {{ ref('fct_physical_activity') }} as fct_activity
-    left join {{ ref('dim_physical_activity')}} as dim_activity
-        on fct_activity.physical_activity_key = dim_activity.physical_activity_key
     left join {{ ref('dim_date') }} as dim_date
         on fct_activity.date_day = dim_date.date_day
 

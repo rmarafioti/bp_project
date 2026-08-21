@@ -3,9 +3,6 @@ version: 2
 models:
   - name: wide_physical_activity
     columns:
-      - name: physical_activity_key
-        data_type: string
-        description: '{{ doc("physical_activity_key") }}'
       - name: person_key
         data_type: string
       - name: person_id

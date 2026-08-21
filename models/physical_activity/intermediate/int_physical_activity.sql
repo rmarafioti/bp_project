@@ -3,13 +3,16 @@ with physical_activity as (
     select
         activity.person_id,
         activity.date_day,
+        activity.time_of_day,
         activity.weight,
         activity.average_heart_rate,
         activity.physical_activity_distance,
         activity.physical_activity_duration,
         activity.calories_burned,
+        activity.physical_activity,
         activity.physical_activity_intensity,
 
+        dates.year,
         dates.week_start_date,
         dates.week_end_date,
 from {{ ref('stg_physical_activity') }} as activity
@@ -23,11 +26,15 @@ intensity_duration as (
     select
         person_id,
         date_day,
+        time_of_day,
+        weight,
         average_heart_rate,
         physical_activity_distance,
         physical_activity_duration,
         calories_burned,
+        physical_activity,
         physical_activity_intensity,
+        year,
         week_start_date,
         week_end_date,
         case 
@@ -47,13 +54,15 @@ cumulative as (
     select
         person_id,
         date_day,
+        time_of_day,
+        weight,
         average_heart_rate,
         physical_activity_distance,
         physical_activity_duration,
         calories_burned,
+        physical_activity,
         physical_activity_intensity,
-        week_start_date,
-        week_end_date,
+        year,
 
         sum(moderate_intensity) over (
             partition by person_id, week_start_date
@@ -69,16 +78,17 @@ cumulative as (
 )
 
 select
-
     person_id,
     date_day,
+    time_of_day,
+    weight,
     average_heart_rate,
     physical_activity_distance,
     physical_activity_duration,
     calories_burned,
+    physical_activity,
     physical_activity_intensity,
-    week_start_date,
-    week_end_date,
+    year,
     round(cumulative_weekly_moderate_intensity, 1)          as cumulative_weekly_moderate_intensity,
     round(cumulative_weekly_vigorous_intensity, 1)          as cumulative_weekly_vigorous_intensity,
     if(cumulative_weekly_moderate_intensity > 2.5, 1, 0)    as has_met_weekly_moderate_hours,

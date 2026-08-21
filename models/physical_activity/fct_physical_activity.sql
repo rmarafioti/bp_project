@@ -1,11 +1,17 @@
 select
-    {{ dbt_utils.generate_surrogate_key(['person_id', 'date_day']) }}   as physical_activity_key,
     {{ dbt_utils.generate_surrogate_key(['person_id', 'year']) }}       as person_key,
     {{ dbt_utils.generate_surrogate_key(['date_day']) }}                as date_key,
     date_day,
+    time_of_day,
     weight,
     average_heart_rate,
     physical_activity_distance,
     physical_activity_duration,
     calories_burned,
-from {{ ref('stg_physical_activity') }}
+    physical_activity,
+    physical_activity_intensity,
+    cumulative_weekly_moderate_intensity,
+    cumulative_weekly_vigorous_intensity,
+    has_met_weekly_moderate_hours,
+    has_met_weekly_vigorous_hours,
+from {{ ref('int_physical_activity') }}
