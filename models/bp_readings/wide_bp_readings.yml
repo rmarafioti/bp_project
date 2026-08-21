@@ -3,9 +3,6 @@ version: 2
 models:
   - name: wide_bp_readings
     columns:
-      - name: bp_reading_key
-        data_type: string
-        description: '{{ doc("bp_reading_key") }}'
       - name: person_key
         data_type: string
       - name: person_id

@@ -3,15 +3,6 @@ version: 2
 models:
   - name: fct_bp_readings
     columns:
-      - name: bp_reading_key
-        data_type: string
-        description: '{{ doc("bp_reading_key") }}'
-        data_tests:
-          - unique
-          - not_null
-        -relationships:
-          to: ref('dim_bp_readings')
-          field: bp_reading_key
       - name: person_key
         data_type: string
         data_tests:

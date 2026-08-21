@@ -6,9 +6,12 @@ bp_readings as (
         date_day,
         month,
         year,
+        time_of_day,
+        general_mood,
         systolic_reading,
         diastolic_reading,
         bp_reading,
+        bp_category,
     from {{ ref('stg_bp_readings') }}
 
 ),
@@ -39,11 +42,15 @@ results as (
         bp_readings.date_day,
         bp_readings.month,
         bp_readings.year,
+        bp_readings.time_of_day,
+        bp_readings.general_mood,
+
+        person_weight.weight,
+
         bp_readings.systolic_reading,
         bp_readings.diastolic_reading,
         bp_readings.bp_reading,
-
-        person_weight.weight,
+        bp_readings.bp_category,
 
         bp_readings.systolic_reading - previous_day_readings.previous_systolic_reading      as systolic_change_from_previous_day,
         bp_readings.diastolic_reading - previous_day_readings.previous_diastolic_reading    as diastolic_change_from_previous_day,

@@ -2,15 +2,12 @@ with bp_readings as (
     
     select
         fct_readings.person_key,
-        dim_readings.time_of_day,
-        count(fct_readings.bp_reading_key)   as total_bp_readings,
-        sum(fct_readings.systolic_reading)   as total_systolic_readings,
-        sum(fct_readings.diastolic_reading)  as total_diastolic_readings,
+        fct_readings.time_of_day,
+        count(fct_readings.date_day)            as total_bp_readings,
+        sum(fct_readings.systolic_reading)      as total_systolic_readings,
+        sum(fct_readings.diastolic_reading)     as total_diastolic_readings,
 
     from {{ ref('fct_bp_readings')}} as fct_readings
-    left join {{ ref('dim_bp_readings')}} as dim_readings
-        on fct_readings.bp_reading_key = dim_readings.bp_reading_key
-    -- where dim_readings.time_of_day = 'Morning'
     group by 1,2
 
 ),
