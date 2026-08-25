@@ -11,12 +11,13 @@ with date_spine as (
 date_cleaned as (
 
     select
-        cast(date_day as date) as date_day,
-        extract(month from date_day) as month,
-        format_date('%B', date_day) as month_name,
-        extract(year from date_day) as year,
-        cast(date_trunc(date_day, week(sunday)) as date) as week_start_date,
-        cast(date_add(date_trunc(date_day, week(sunday)), interval 6 day) as date) as week_end_date,
+        cast(date_day as date)                              as date_day,
+        extract(month from date_day)                        as month,
+        format_date('%B', date_day)                         as month_name,
+        extract(year from date_day)                         as year,
+        cast(date_trunc(date_day, week(sunday)) as date)    as week_start_date,
+        cast(date_add(date_trunc(date_day, week(sunday)), 
+            interval 6 day) as date)                        as week_end_date,
     from date_spine
 
 )

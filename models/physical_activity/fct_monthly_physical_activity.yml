@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: fct_monthly_bp_readings
+  - name: fct_monthly_physical_activity
     columns:
       - name: person_key
         data_type: string
@@ -26,23 +26,21 @@ models:
         data_type: int64
       - name: year
         data_type: int64
-      - name: bp_reading_count
+      - name: physical_activity_count
         data_type: int64
-      - name: weight_count
+      - name: total_average_heart_rate
+        data_type: int64
+      - name: total_physical_activity_distance
         data_type: float64
-      - name: total_weight
+      - name: total_physical_activity_duration
         data_type: float64
-      - name: total_systolic_readings
+      - name: total_calories_burned
         data_type: int64
-      - name: total_diastolic_readings
+      - name: total_moderate_intensity_hours
         data_type: int64
-      - name: total_systolic_absolute_change_from_previous_day
+      - name: has_met_monthly_moderate_hours
         data_type: int64
-      - name: total_diastolic_absolute_change_from_previous_day
-        data_type: int64
-      - name: normal_bp_category_count
-        data_type: int64
-      - name: most_common_monthly_bp_category
-        data_type: string
-      - name: most_common_monthly_bp_category_count
+      - name: total_vigorous_intensity_hours
+        data_type: float64
+      - name: has_met_monthly_vigorous_hours
         data_type: int64

@@ -28,18 +28,17 @@ select
     month_spine.month_name,
     month_spine.year,
 
-    fct_table.bp_reading_count,
-    fct_table.weight_count,
-    fct_table.total_weight,
-    fct_table.total_systolic_readings,
-    fct_table.total_diastolic_readings,
-    fct_table.total_systolic_absolute_change_from_previous_day,
-    fct_table.total_diastolic_absolute_change_from_previous_day,
-    fct_table.normal_bp_category_count,
-    fct_table.most_common_monthly_bp_category,
-    fct_table.most_common_monthly_bp_category_count,
+    fct_table.physical_activity_count,
+    fct_table.total_average_heart_rate,
+    fct_table.total_physical_activity_distance,
+    fct_table.total_physical_activity_duration,
+    fct_table.total_calories_burned,
+    fct_table.total_moderate_intensity_hours,
+    fct_table.has_met_monthly_moderate_hours,
+    fct_table.total_vigorous_intensity_hours,
+    fct_table.has_met_monthly_vigorous_hours,
 
-from {{ ref('fct_monthly_bp_readings')}} as fct_table
+from {{ ref('fct_monthly_physical_activity')}} as fct_table
 left join {{ ref('dim_person')}} as dim_person
     on fct_table.person_key = dim_person.person_key
 left join month_spine

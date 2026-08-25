@@ -5,12 +5,16 @@ models:
     columns:
       - name: person_id
         data_type: int64
-      - name: day_date
+      - name: date_day
         data_type: date
       - name: month
         data_type: int64
       - name: year
         data_type: int64
+      - name: time_of_day
+        data_type: string
+      - name: general_mood
+        data_type: string
       - name: weight
         data_type: float64
       - name: systolic_reading
@@ -18,6 +22,8 @@ models:
       - name: diastolic_reading
         data_type: int64
       - name: bp_reading
+        data_type: string
+      - name: bp_category
         data_type: string
       - name: systolic_change_from_previous_day
         data_type: int64

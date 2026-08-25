@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: int_monthly_physical_activity
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - person_id
+            - month
+            - year
+    columns:
+      - name: person_id
+        data_type: int64
+      - name: month
+        data_type: int64
+      - name: year
+        data_type: int64
+      - name: physical_activity_count
+        data_type: int64
+      - name: total_average_heart_rate
+        data_type: int64
+      - name: total_physical_activity_distance
+        data_type: float64
+      - name: total_physical_activity_duration
+        data_type: float64
+      - name: total_calories_burned
+        data_type: int64
+      - name: total_moderate_intensity_hours
+        data_type: int64
+      - name: total_vigorous_intensity_hours
+        data_type: float64
+      - name: has_met_monthly_moderate_hours
+        data_type: int64
+      - name: has_met_monthly_vigorous_hours
+        data_type: int64

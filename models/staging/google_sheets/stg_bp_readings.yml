@@ -10,11 +10,11 @@ models:
     columns:
       - name: person_id
         data_type: int64
-      - name: day_date
+      - name: date_day
         data_type: date
-      - name: year
-        data_type: int64
       - name: month
+        data_type: int64
+      - name: year
         data_type: int64
       - name: time_of_day
         data_type: string

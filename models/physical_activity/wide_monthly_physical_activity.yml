@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: wide_monthly_physical_activity
+    columns:
+      - name: person_key
+        data_type: string
+      - name: person_id
+        data_type: int64
+      - name: person_id
+        data_type: int64
+      - name: person_display_name
+        data_type: string
+      - name: date_of_birth
+        data_type: date
+      - name: age
+        data_type: int64
+      - name: gender
+        data_type: string
+      - name: height
+        data_type: string
+      - name: month
+        data_type: int64
+      - name: month_name
+        data_type: string
+      - name: year
+        data_type: int64
+      - name: physical_activity_count
+        data_type: int64
+      - name: total_average_heart_rate
+        data_type: int64
+      - name: total_physical_activity_distance
+        data_type: float64
+      - name: total_physical_activity_duration
+        data_type: float64
+      - name: total_calories_burned
+        data_type: int64
+      - name: total_moderate_intensity_hours
+        data_type: int64
+      - name: has_met_monthly_moderate_hours
+        data_type: int64
+      - name: total_vigorous_intensity_hours
+        data_type: float64
+      - name: has_met_monthly_vigorous_hours
+        data_type: int64

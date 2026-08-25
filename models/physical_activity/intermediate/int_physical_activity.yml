@@ -1,42 +1,38 @@
 version: 2
 
 models:
-  - name: stg_physical_activity
-    data_tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - person_id
-            - date_day
+  - name: int_physical_activity
     columns:
       - name: person_id
         data_type: int64
-        description: '{{ doc("person_id") }}'
       - name: date_day
         data_type: date
-      - name: month
-        data_type: int64
       - name: year
         data_type: int64
       - name: time_of_day
         data_type: string
-        description: '{{ doc("time_of_day") }}'
       - name: weight
         data_type: float64
-        description: '{{ doc("weight") }}'
       - name: average_heart_rate
         data_type: int64
         description: '{{ doc("average_heart_rate") }}'
-      - name: physical_activity
-        data_type: string
-        description: '{{ doc("physical_activity") }}'
       - name: physical_activity_distance
         data_type: float64
-        description: '{{ doc("physical_activity") }}'
+        description: '{{ doc("physical_activity_distance") }}'
       - name: physical_activity_duration
         data_type: float64
         description: '{{ doc("physical_activity_duration") }}'
       - name: calories_burned
         data_type: int64
+      - name: physical_activity
+        data_type: string
       - name: physical_activity_intensity
         data_type: string
-        description: '{{ doc("physical_activity_intensity") }}'
+      - name: cumulative_weekly_moderate_intensity
+        data_type: float64
+      - name: cumulative_weekly_vigorous_intensity
+        data_type: float64
+      - name: has_met_weekly_moderate_hours
+        data_type: int64
+      - name: has_met_weekly_vigorous_hours
+        data_type: float64

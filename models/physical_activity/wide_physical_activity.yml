@@ -19,31 +19,43 @@ models:
         data_type: string
       - name: weight
         data_type: float64
-      - name: day_date
+      - name: date_day
         data_type: date
+      - name: time_of_day
+        data_type: string
+        description: '{{ doc("time_of_day") }}'
       - name: month
         data_type: int64
       - name: month_name
         data_type: string
+      - name: week_start_date
+        data_type: date
+      - name: week_end_date
+        data_type: date
       - name: year
         data_type: int64
-      - name: time_of_day
-        data_type: string
-        description: '{{ doc("time_of_day") }}'
       - name: physical_activity
         data_type: string
         description: '{{ doc("physical_activity") }}'
-      - name: physical_activity_intensity
-        data_type: string
-        description: '{{ doc("physical_activity_intensity") }}'
       - name: average_heart_rate
         data_type: int64
         description: '{{ doc("average_heart_rate") }}'
-      - name: physical_activity_distance
-        date_type: float64
-        description: '{{ doc("physical_activity_distance") }}'
+      - name: physical_activity_intensity
+        data_type: string
+        description: '{{ doc("physical_activity_intensity") }}'
       - name: physical_activity_duration
-        date_type: float64
+        data_type: float64
         description: '{{ doc("physical_activity_duration") }}'
+      - name: physical_activity_distance
+        data_type: float64
+        description: '{{ doc("physical_activity_distance") }}'
       - name: calories_burned
         data_type: int64
+      - name: cumulative_weekly_moderate_intensity
+        data_type: float64
+      - name: cumulative_weekly_vigorous_intensity
+        data_type: float64
+      - name: has_met_weekly_moderate_hours
+        data_type: int64
+      - name: has_met_weekly_vigorous_hours
+        data_type: float64

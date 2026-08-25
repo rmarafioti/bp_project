@@ -1,8 +1,8 @@
 select
     person_id,
-    bp_reading_date as date_day,
-    extract(year from bp_reading_date) as year,
-    extract(month from bp_reading_date) as month,
+    bp_reading_date                         as date_day,
+    extract(month from bp_reading_date)     as month,
+    extract(year from bp_reading_date)      as year,
     time_of_day,
     systolic_reading,
     diastolic_reading,

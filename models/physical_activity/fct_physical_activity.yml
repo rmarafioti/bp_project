@@ -7,29 +7,45 @@ models:
         data_type: string
         data_tests:
           - not_null
-        -relationships:
-          to: ref('dim_person')
-          field: person_key
+          - relationships:
+              arguments:
+                to: ref('dim_person')
+                field: person_key
       - name: date_key
         data_type: string
         data_tests:
           - unique
           - not_null
-        -relationships:
-          to: ref('dim_date')
-          field: date_key
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
       - name: date_day
         data_type: date
+      - name: time_of_day
+        data_type: string
       - name: weight
         data_type: float64
       - name: average_heart_rate
         data_type: int64
         description: '{{ doc("average_heart_rate") }}'
       - name: physical_activity_distance
-        date_type: float64
+        data_type: float64
         description: '{{ doc("physical_activity_distance") }}'
       - name: physical_activity_duration
-        date_type: float64
+        data_type: float64
         description: '{{ doc("physical_activity_duration") }}'
       - name: calories_burned
         data_type: int64
+      - name: physical_activity
+        data_type: string
+      - name: physical_activity_intensity
+        data_type: string
+      - name: cumulative_weekly_moderate_intensity
+        data_type: float64
+      - name: cumulative_weekly_vigorous_intensity
+        data_type: float64
+      - name: has_met_weekly_moderate_hours
+        data_type: int64
+      - name: has_met_weekly_vigorous_hours
+        data_type: float64

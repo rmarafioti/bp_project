@@ -1,0 +1,16 @@
+select
+    {{ dbt_utils.generate_surrogate_key(['person_id', 'year']) }}       as person_key,
+    {{ dbt_utils.generate_surrogate_key(['month', 'year']) }}           as month_key,
+    person_id,
+    month,
+    year,
+    physical_activity_count,
+    total_average_heart_rate,
+    total_physical_activity_distance,
+    total_physical_activity_duration,
+    total_calories_burned,
+    total_moderate_intensity_hours,
+    has_met_monthly_moderate_hours,
+    total_vigorous_intensity_hours,
+    has_met_monthly_vigorous_hours,
+from {{ ref('int_monthly_physical_activity')}} 

@@ -80,6 +80,7 @@ cumulative as (
 select
     person_id,
     date_day,
+    year,
     time_of_day,
     weight,
     average_heart_rate,
@@ -88,10 +89,9 @@ select
     calories_burned,
     physical_activity,
     physical_activity_intensity,
-    year,
-    round(cumulative_weekly_moderate_intensity, 1)          as cumulative_weekly_moderate_intensity,
-    round(cumulative_weekly_vigorous_intensity, 1)          as cumulative_weekly_vigorous_intensity,
-    if(cumulative_weekly_moderate_intensity >= 2.5, 1, 0)    as has_met_weekly_moderate_hours,
-    if(cumulative_weekly_vigorous_intensity >= 1.25, 1, 0)   as has_met_weekly_vigorous_hours,
+    round(cumulative_weekly_moderate_intensity, 1)              as cumulative_weekly_moderate_intensity,
+    round(cumulative_weekly_vigorous_intensity, 1)              as cumulative_weekly_vigorous_intensity,
+    if(cumulative_weekly_moderate_intensity >= 2.5, 1, 0)       as has_met_weekly_moderate_hours,
+    if(cumulative_weekly_vigorous_intensity >= 1.25, 1, 0)      as has_met_weekly_vigorous_hours,
 
 from cumulative
