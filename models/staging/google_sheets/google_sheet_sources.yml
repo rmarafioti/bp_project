@@ -71,11 +71,20 @@ sources:
             data_type: int64
           - name: activity_date
             data_type: date
-          - name: has_caffiene_
-            data_type: boolean
+          - name: caffien_drink_count
+            data_type: int64
           - name: caffiene_description
             data_type: string
-          - name: has_reached_target_hydration
-            data_type: boolean
-          - name: water_hydration_goal
+          - name: daily_water_intake
+            data_type: string
+      - name: daily_sleep_raw
+        description: Live external table reading directly from the Daily Sleep tracking Google Sheet
+        columns:
+          - name: person_id
+            data_type: int64
+          - name: sleep_date
+            data_type: date
+          - name: bed_time
+            data_type: string
+          - name: wake_up_time
             data_type: string
