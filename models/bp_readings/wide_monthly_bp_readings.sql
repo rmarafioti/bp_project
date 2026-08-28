@@ -31,6 +31,7 @@ select
     fct_table.bp_reading_count,
     fct_table.weight_count,
     fct_table.total_weight,
+    fct_table.lastest_monthly_recorded_weight,
     fct_table.total_systolic_readings,
     fct_table.total_diastolic_readings,
     fct_table.total_systolic_absolute_change_from_previous_day,

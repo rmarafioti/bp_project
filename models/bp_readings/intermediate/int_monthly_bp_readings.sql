@@ -50,6 +50,24 @@ most_common_category as (
 
 ),
 
+most_recent_weight as (
+
+    select
+        person_id,
+        month,
+        year, 
+        weight as lastest_monthly_recorded_weight,   
+    from {{ ref('stg_physical_activity')}}
+    qualify row_number() over (
+        partition by
+            person_id,
+            month,
+            year
+        order by month asc
+    ) = 1
+
+),
+
 bp_readings as (
     
     select
@@ -75,6 +93,9 @@ select
     reading_calcs.bp_reading_count,
     reading_calcs.weight_count,
     reading_calcs.total_weight,
+
+    most_recent_weight.lastest_monthly_recorded_weight,
+    
     reading_calcs.total_systolic_readings,
     reading_calcs.total_diastolic_readings,
     reading_calcs.total_systolic_absolute_change_from_previous_day,
@@ -88,3 +109,7 @@ left join most_common_category as category_calcs
     on reading_calcs.person_id = category_calcs.person_id
     and reading_calcs.month = category_calcs.month
     and reading_calcs.year = category_calcs.year
+left join most_recent_weight
+    on reading_calcs.person_id = most_recent_weight.person_id
+    and reading_calcs.month = most_recent_weight.month
+    and reading_calcs.year = most_recent_weight.year

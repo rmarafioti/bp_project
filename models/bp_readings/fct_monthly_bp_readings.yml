@@ -32,6 +32,8 @@ models:
         data_type: float64
       - name: total_weight
         data_type: float64
+      - name: latest_monthly_recorded_weight
+        data_type: flaot64
       - name: total_systolic_readings
         data_type: int64
       - name: total_diastolic_readings
