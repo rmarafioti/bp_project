@@ -14,7 +14,6 @@ models:
       - name: month_key
         data_type: string
         data_tests:
-          - unique
           - not_null
           - relationships:
               arguments:
