@@ -54,16 +54,16 @@ most_recent_weight as (
 
     select
         person_id,
+        date_day,
         month,
         year, 
         weight as lastest_monthly_recorded_weight,   
-    from {{ ref('stg_physical_activity')}}
+    from {{ ref('int_physical_activity')}}
     qualify row_number() over (
         partition by
             person_id,
-            month,
-            year
-        order by month asc
+            month
+        order by date_day desc
     ) = 1
 
 ),

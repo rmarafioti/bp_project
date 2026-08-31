@@ -12,6 +12,7 @@ with physical_activity_results as (
         activity.physical_activity,
         activity.physical_activity_intensity,
 
+        dates.month,
         dates.year,
         dates.week_start_date,
         dates.week_end_date,
@@ -34,6 +35,7 @@ intensity_duration as (
         calories_burned,
         physical_activity,
         physical_activity_intensity,
+        month,
         year,
         week_start_date,
         week_end_date,
@@ -62,6 +64,7 @@ cumulative as (
         calories_burned,
         physical_activity,
         physical_activity_intensity,
+        month,
         year,
 
         sum(moderate_intensity) over (
@@ -80,6 +83,7 @@ cumulative as (
 select
     person_id,
     date_day,
+    month,
     year,
     time_of_day,
     weight,

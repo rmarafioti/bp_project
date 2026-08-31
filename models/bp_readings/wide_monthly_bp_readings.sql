@@ -40,22 +40,6 @@ select
     fct_table.most_common_monthly_bp_category,
     fct_table.most_common_monthly_bp_category_count,
 
-    fct_table.time_of_day,
-    fct_table.avg_monthly_morning_systolic_reading,
-    fct_table.avg_monthly_morning_diastolic_reading,
-    fct_table.avg_monthly_morning_reading,
-    fct_table.monthly_morning_bp_category,
-
-    fct_table.avg_monthly_afternoon_systolic_reading,
-    fct_table.avg_monthly_afternoon_diastolic_reading,
-    fct_table.avg_monthly_afternoon_reading,
-    fct_table.monthly_afternoon_bp_category,
-
-    fct_table.avg_monthly_evening_systolic_reading,
-    fct_table.avg_monthly_evening_diastolic_reading,
-    fct_table.avg_monthly_evening_reading,
-    fct_table.monthly_evening_bp_category,
-
 from {{ ref('fct_monthly_bp_readings')}} as fct_table
 left join {{ ref('dim_person')}} as dim_person
     on fct_table.person_key = dim_person.person_key
