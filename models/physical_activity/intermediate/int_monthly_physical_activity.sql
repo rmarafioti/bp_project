@@ -22,7 +22,7 @@ with physical_activity_monthly as (
 
 ),
 
-results as (
+counts as (
 
     select
         person_id,
@@ -55,7 +55,7 @@ final as (
         total_vigorous_intensity_hours,
         if(total_moderate_intensity_hours >= 10, 1, 0)  as has_met_monthly_moderate_hours,
         if(total_vigorous_intensity_hours >= 5, 1, 0)    as has_met_monthly_vigorous_hours,
-    from results
+    from counts
 
 )
 
