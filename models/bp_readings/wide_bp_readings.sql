@@ -27,6 +27,8 @@ select
 
     fct_table.systolic_change_from_previous_day,
     fct_table.diastolic_change_from_previous_day,
+    fct_table.has_met_daily_systolic_goal,
+    fct_table.has_met_daily_diastolic_goal,
 
 from {{ ref('fct_bp_readings')}} as fct_table
 left join {{ ref('dim_person')}} as dim_person

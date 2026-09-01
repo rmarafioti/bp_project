@@ -11,4 +11,6 @@ select
     bp_category,
     systolic_change_from_previous_day,
     diastolic_change_from_previous_day,
+    if(systolic_reading < 120, 1,0) as has_met_daily_systolic_goal,
+    if(diastolic_reading < 80, 1,0) as has_met_daily_diastolic_goal,
 from {{ ref('int_bp_readings') }}
