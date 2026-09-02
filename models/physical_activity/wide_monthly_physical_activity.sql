@@ -1,3 +1,5 @@
+{% set activity_list = dbt_utils.get_column_values(ref('stg_physical_activity'), 'physical_activity') if execute else [] %}
+
 with month_spine as (
 
     select
@@ -12,6 +14,20 @@ with month_spine as (
             year
         order by month asc
     ) = 1
+),
+
+activities as (
+
+    select
+        {{ dbt_utils.generate_surrogate_key(['person_id', 'year']) }}       as person_key,
+        {{ dbt_utils.generate_surrogate_key(['month', 'year']) }}           as month_key,
+        {% for activity in activity_list %}
+        sum(case when physical_activity = '{{ activity }}' then 1 else 0 end) as {{ activity | trim | lower }}_count{% if not loop.last %},{% endif %}
+        {% endfor %}
+    from {{ ref('stg_physical_activity') }}
+    where physical_activity is not null
+    group by 1,2
+
 )
 
 select
@@ -38,7 +54,12 @@ select
     fct_table.total_vigorous_intensity_hours,
     fct_table.has_met_monthly_vigorous_hours,
 
+    activities.* except (person_key, month_key),
+
 from {{ ref('fct_monthly_physical_activity')}} as fct_table
+left join activities
+    on fct_table.person_key = activities.person_key
+    and fct_table.month_key = activities.month_key
 left join {{ ref('dim_person')}} as dim_person
     on fct_table.person_key = dim_person.person_key
 left join month_spine

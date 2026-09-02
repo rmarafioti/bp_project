@@ -19,6 +19,7 @@ with physical_activity_monthly as (
                 then physical_activity_duration
         end                                             as moderate_intensity_hours,
     from {{ ref('stg_physical_activity') }}
+    where physical_activity is not null
 
 ),
 
