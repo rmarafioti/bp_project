@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: int_monthly_sleep
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - person_id
+            - month
+            - year
+    columns:
+      - name: person_id
+        data_type: int64
+      - name: month
+        data_type: int64
+      - name: year
+        data_type: int64
+      - name: average_nightly_sleep_hours
+        data_type: float64
+      - name: percent_met_nightly_sleep_goal
+        data_type: float64
