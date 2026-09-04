@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: wide_monthly_hydration_and_caffeine
+  - name: wide_daily_sleep
     columns:
       - name: person_key
         data_type: string
@@ -17,13 +17,19 @@ models:
         data_type: string
       - name: height
         data_type: string
+      - name: date_day
+        data_type: date
       - name: month
         data_type: int64
       - name: month_name
         data_type: string
       - name: year
         data_type: int64
-      - name: average_daily_caffeine_intake
+      - name: bed_time
+        data_type: time
+      - name: wake_up_time
+        data_type: time
+      - name: amount_of_nightly_sleep_hours
         data_type: float64
-      - name: percent_met_water_intake_goal
-        data_type: float64
+      - name: sleep_band
+        data_type: string
