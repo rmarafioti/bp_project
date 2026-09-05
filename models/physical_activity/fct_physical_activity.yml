@@ -5,6 +5,7 @@ models:
     columns:
       - name: person_key
         data_type: string
+        description: '{{ doc("person_key") }}'
         data_tests:
           - not_null
           - relationships:
@@ -13,6 +14,7 @@ models:
                 field: person_key
       - name: date_key
         data_type: string
+        description: '{{ doc("date_key") }}'
         data_tests:
           - unique
           - not_null
@@ -26,6 +28,7 @@ models:
         data_type: string
       - name: weight
         data_type: float64
+        description: '{{ doc("weight") }}'
       - name: average_heart_rate
         data_type: int64
         description: '{{ doc("average_heart_rate") }}'
@@ -43,9 +46,13 @@ models:
         data_type: string
       - name: cumulative_weekly_moderate_intensity
         data_type: float64
+        description: '{{ doc("cumulative_weekly_moderate_intensity") }}'
       - name: cumulative_weekly_vigorous_intensity
         data_type: float64
+        description: '{{ doc("cumulative_weekly_vigorous_intensity") }}'
       - name: has_met_weekly_moderate_hours
         data_type: int64
+        description: '{{ doc("has_met_weekly_moderate_hours") }}'
       - name: has_met_weekly_vigorous_hours
         data_type: float64
+        description: '{{ doc("has_met_weekly_vigorous_hours") }}'

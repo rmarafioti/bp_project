@@ -9,7 +9,7 @@ with sleep_amount as (
                 wake_up_time, bed_time ,minute) + 1440,
             1440
         ) / 60.0 as amount_of_sleep_hours,
-    from {{ ref('stg_daily_sleep') }}
+    from {{ ref('stg_nightly_sleep') }}
 
 ),
 

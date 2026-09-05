@@ -7,7 +7,7 @@ select
     bp_reading_count,
     weight_count,
     total_weight,
-    lastest_monthly_recorded_weight,
+    latest_monthly_recorded_weight,
     total_systolic_readings,
     total_diastolic_readings,
     total_systolic_absolute_change_from_previous_day,

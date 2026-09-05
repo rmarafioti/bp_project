@@ -5,6 +5,7 @@ models:
     columns:
       - name: person_key
         data_type: string
+        description: '{{ doc("person_key") }}'
         data_tests:
           - not_null
           - relationships:
@@ -13,6 +14,7 @@ models:
                 field: person_key
       - name: month_key
         data_type: string
+        description: '{{ doc("month_key") }}'
         data_tests:
           - unique
           - not_null
@@ -22,6 +24,7 @@ models:
                 field: month_key
       - name: person_id
         data_type: int64
+        description: '{{ doc("person_id") }}'
       - name: month
         data_type: int64
       - name: year
@@ -30,3 +33,4 @@ models:
         data_type: float64
       - name: percent_met_nightly_sleep_goal
         data_type: float64
+        description: '{{ doc("percent_met_nightly_sleep_goal") }}'

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_daily_sleep
+  - name: stg_nightly_sleep
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
@@ -10,6 +10,7 @@ models:
     columns:
       - name: person_id
         data_type: int64
+        description: '{{ doc("person_id") }}'
       - name: date_day
         data_type: date
       - name: month

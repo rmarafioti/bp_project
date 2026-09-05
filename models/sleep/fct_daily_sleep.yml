@@ -5,6 +5,7 @@ models:
     columns:
       - name: person_key
         data_type: string
+        description: '{{ doc("person_key") }}'
         data_tests:
           - not_null
           - relationships:
@@ -13,6 +14,7 @@ models:
                 field: person_key
       - name: date_key
         data_type: string
+        description: '{{ doc("date_key") }}'
         data_tests:
           - unique
           - not_null
@@ -30,3 +32,4 @@ models:
         data_type: float64
       - name: sleep_band
         data_type: string
+        description: '{{ doc("sleep_band") }}'

@@ -11,7 +11,7 @@ with sleep_amount as (
                 wake_up_time, bed_time ,minute) + 1440,
             1440
         ) / 60.0 as amount_of_nightly_sleep_hours,
-    from {{ ref('stg_daily_sleep') }}
+    from {{ ref('stg_nightly_sleep') }}
 
 ),
 
@@ -30,7 +30,7 @@ results as (
             when amount_of_nightly_sleep_hours >= 6 then 'Shortfall of Sleep Goal'
             when amount_of_nightly_sleep_hours < 6 then 'Poor Sleep'
         end as sleep_band,
-        from sleep_amount
+    from sleep_amount
 
 )
 

@@ -57,7 +57,7 @@ most_recent_weight as (
         date_day,
         month,
         year, 
-        weight as lastest_monthly_recorded_weight,   
+        weight as latest_monthly_recorded_weight,   
     from {{ ref('int_physical_activity')}}
     qualify row_number() over (
         partition by
@@ -94,7 +94,7 @@ select
     reading_calcs.weight_count,
     reading_calcs.total_weight,
 
-    most_recent_weight.lastest_monthly_recorded_weight,
+    most_recent_weight.latest_monthly_recorded_weight,
     
     reading_calcs.total_systolic_readings,
     reading_calcs.total_diastolic_readings,
