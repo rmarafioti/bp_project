@@ -4,12 +4,13 @@ models:
   - name: physical_activity_by_month
     data_tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - metric_category
-            - metric_subcategory
-            - metric_name
-            - metric_period
-            - metric_value
+          arguments:
+            combination_of_columns:
+              - metric_category
+              - metric_subcategory
+              - metric_name
+              - metric_period
+              - metric_value
     columns:
       - name: person_key
         data_type: string

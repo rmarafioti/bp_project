@@ -4,10 +4,11 @@ models:
   - name: avg_overall_bp_by_time_of_day
     data_tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - metric_category
-            - metric_subcategory
-            - metric_name
+          arguments:
+            combination_of_columns:
+              - metric_category
+              - metric_subcategory
+              - metric_name
     columns:
       - name: person_key
         data_type: string
