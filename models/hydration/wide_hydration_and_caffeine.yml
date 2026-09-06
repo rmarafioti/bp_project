@@ -7,6 +7,7 @@ models:
         data_type: string
       - name: person_id
         data_type: int64
+        description: '{{ doc("person_id") }}'
       - name: person_display_name
         data_type: string
       - name: date_of_birth
@@ -33,3 +34,4 @@ models:
         data_type: int64
       - name: hydration_band
         data_type: string
+        description: '{{ doc("hydration_band") }}'

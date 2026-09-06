@@ -12,6 +12,7 @@ models:
     columns:
       - name: person_id
         data_type: int64
+        description: '{{ doc("person_id") }}'
       - name: month
         data_type: int64
       - name: year

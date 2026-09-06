@@ -5,6 +5,7 @@ models:
     columns:
       - name: person_id
         data_type: int64
+        description: '{{ doc("person_id") }}'
       - name: date_day
         data_type: date
       - name: month
@@ -15,17 +16,25 @@ models:
         data_type: string
       - name: general_mood
         data_type: string
+        description: '{{ doc("general_mood") }}'
       - name: weight
         data_type: float64
+        description: '{{ doc("weight") }}'
       - name: systolic_reading
         data_type: int64
+        description: '{{ doc("systolic_reading") }}'
       - name: diastolic_reading
         data_type: int64
+        description: '{{ doc("diastolic_reading") }}'
       - name: bp_reading
         data_type: string
+        description: '{{ doc("bp_reading") }}'
       - name: bp_category
         data_type: string
+        description: '{{ doc("bp_category") }}'
       - name: systolic_change_from_previous_day
         data_type: int64
+        description: '{{ doc("systolic_change_from_previous_day") }}'
       - name: diastolic_change_from_previous_day
         data_type: int64
+        description: '{{ doc("diastolic_change_from_previous_day") }}'

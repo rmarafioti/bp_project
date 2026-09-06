@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: physical_activity_by_month
+  - name: latest_recorded_weight
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           arguments:
@@ -9,8 +9,6 @@ models:
               - metric_category
               - metric_subcategory
               - metric_name
-              - metric_period
-              - metric_value
     columns:
       - name: person_key
         data_type: string

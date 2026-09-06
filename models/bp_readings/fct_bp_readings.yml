@@ -5,6 +5,7 @@ models:
     columns:
       - name: person_key
         data_type: string
+        description: '{{ doc("person_key") }}'
         data_tests:
           - not_null
           - relationships:
@@ -13,6 +14,7 @@ models:
                 field: person_key
       - name: date_key
         data_type: string
+        description: '{{ doc("date_key") }}'
         data_tests:
           - unique
           - not_null
@@ -24,10 +26,13 @@ models:
         data_type: date
       - name: time_of_day
         data_type: string
+        description: '{{ doc("time_of_day") }}'
       - name: general_mood
         data_type: string
+        description: '{{ doc("general_mood") }}'
       - name: weight
         data_type: float64
+        description: '{{ doc("weight") }}'
       - name: systolic_reading
         data_type: int64
         description: '{{ doc("systolic_reading") }}'

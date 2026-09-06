@@ -54,12 +54,20 @@ Binary flag, 1 if person has met weekly goal of 2.5 hours of moderate physical a
 Binary flag, 1 if person has met weekly goal of 1.25 hours of vigorous physical activity, else 0
 {% enddocs %}
 
+{% docs hydration_band %}
+Thresholds measuring the amount of a person's daily water intake. Less than 65 oz = 'Poor Daily Hydration', greater than or equal to 65 oz = 'Moderate Shortfall of Hydration Goal', greater than or equal to 75 = 'Shortfall of Hydration Goal', greater than or equal to 86 = 'Met Hydration Goal', greater than 87 = 'Above Hydration Goal
+{% enddocs %}
+
 {% docs month_key %}
 Surrogate key made up of the month and the year
 {% enddocs %}
 
 {% docs percent_met_nightly_sleep_goal %}
 The percent of nights a person has met the sleep goal of 7 hours of sleep or more
+{% enddocs %}
+
+{% docs percent_met_water_intake_goal %}
+The percent of days a person has drank 86 oz of water or more
 {% enddocs %}
 
 {% docs person_id %}
