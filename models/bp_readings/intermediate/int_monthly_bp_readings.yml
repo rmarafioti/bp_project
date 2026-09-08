@@ -39,3 +39,5 @@ models:
         data_type: string
       - name: most_common_monthly_bp_category_count
         data_type: int64
+      - name: percent_normal_monthly_bp_readings
+        data_type: float64

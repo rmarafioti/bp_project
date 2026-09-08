@@ -33,7 +33,6 @@ most_common_category as (
         bp_category_counts.year,
         bp_category_counts.bp_category          as most_common_monthly_bp_category,
         bp_category_counts.bp_category_count    as most_common_monthly_bp_category_count,
-
         normal_counts.normal_bp_category_count,
     from bp_category_counts 
     left join normal_counts
@@ -84,32 +83,46 @@ bp_readings as (
     from {{ ref('int_bp_readings') }}
     group by 1,2,3
 
+),
+
+results as (
+
+    select
+        reading_calcs.person_id,
+        reading_calcs.month,
+        reading_calcs.year,
+        reading_calcs.bp_reading_count,
+        reading_calcs.weight_count,
+        reading_calcs.total_weight,
+
+        most_recent_weight.latest_monthly_recorded_weight,
+    
+        reading_calcs.total_systolic_readings,
+        reading_calcs.total_diastolic_readings,
+        reading_calcs.total_systolic_absolute_change_from_previous_day,
+        reading_calcs.total_diastolic_absolute_change_from_previous_day,
+
+        category_calcs.normal_bp_category_count,
+        category_calcs.most_common_monthly_bp_category,
+        category_calcs.most_common_monthly_bp_category_count,
+        round(
+                safe_divide(
+                    category_calcs.normal_bp_category_count,
+                    reading_calcs.bp_reading_count
+                    ), 2
+        )                                       as percent_normal_monthly_bp_readings,
+    from bp_readings as reading_calcs
+    left join most_common_category as category_calcs
+        on reading_calcs.person_id = category_calcs.person_id
+        and reading_calcs.month = category_calcs.month
+        and reading_calcs.year = category_calcs.year
+    left join most_recent_weight
+        on reading_calcs.person_id = most_recent_weight.person_id
+        and reading_calcs.month = most_recent_weight.month
+        and reading_calcs.year = most_recent_weight.year
+
 )
 
-select
-    reading_calcs.person_id,
-    reading_calcs.month,
-    reading_calcs.year,
-    reading_calcs.bp_reading_count,
-    reading_calcs.weight_count,
-    reading_calcs.total_weight,
+select * from results
 
-    most_recent_weight.latest_monthly_recorded_weight,
-    
-    reading_calcs.total_systolic_readings,
-    reading_calcs.total_diastolic_readings,
-    reading_calcs.total_systolic_absolute_change_from_previous_day,
-    reading_calcs.total_diastolic_absolute_change_from_previous_day,
 
-    category_calcs.normal_bp_category_count,
-    category_calcs.most_common_monthly_bp_category,
-    category_calcs.most_common_monthly_bp_category_count, 
-from bp_readings as reading_calcs
-left join most_common_category as category_calcs
-    on reading_calcs.person_id = category_calcs.person_id
-    and reading_calcs.month = category_calcs.month
-    and reading_calcs.year = category_calcs.year
-left join most_recent_weight
-    on reading_calcs.person_id = most_recent_weight.person_id
-    and reading_calcs.month = most_recent_weight.month
-    and reading_calcs.year = most_recent_weight.year

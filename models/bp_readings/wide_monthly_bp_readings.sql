@@ -39,6 +39,7 @@ select
     fct_table.normal_bp_category_count,
     fct_table.most_common_monthly_bp_category,
     fct_table.most_common_monthly_bp_category_count,
+    fct_table.percent_normal_monthly_bp_readings,
 
 from {{ ref('fct_monthly_bp_readings')}} as fct_table
 left join {{ ref('dim_person')}} as dim_person

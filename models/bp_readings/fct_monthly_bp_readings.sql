@@ -15,5 +15,6 @@ select
     normal_bp_category_count,
     most_common_monthly_bp_category,
     most_common_monthly_bp_category_count,
+    percent_normal_monthly_bp_readings,
 
 from {{ ref('int_monthly_bp_readings') }}
