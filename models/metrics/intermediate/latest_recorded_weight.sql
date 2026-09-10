@@ -5,7 +5,8 @@ with latest_weight as (
         date_day,
         year,
         weight,
-    from {{ ref('stg_physical_activity') }}
+    -- live ongoing data source
+    from {{ ref('stg_daily_data_raw') }}
     where 
         weight is not null
     qualify row_number() over (

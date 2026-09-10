@@ -1,4 +1,34 @@
-with physical_activity_monthly as (
+with combined as (
+
+    select
+        person_id,
+        month,
+        year,
+        average_heart_rate,
+        physical_activity_distance,
+        physical_activity_duration,
+        calories_burned,
+        physical_activity_intensity,
+    from {{ ref('stg_physical_activity') }}
+    where physical_activity is not null
+
+    union all
+
+    select
+        person_id,
+        month,
+        year,
+        average_heart_rate,
+        physical_activity_distance,
+        physical_activity_duration,
+        calories_burned,
+        physical_activity_intensity,
+    from {{ ref('stg_daily_data_raw') }}
+    where physical_activity is not null
+
+),
+
+physical_activity_monthly as (
 
     select
         person_id,
@@ -18,8 +48,7 @@ with physical_activity_monthly as (
             when physical_activity_intensity = 'Moderate Intensity'
                 then physical_activity_duration
         end                                             as moderate_intensity_hours,
-    from {{ ref('stg_physical_activity') }}
-    where physical_activity is not null
+    from combined
 
 ),
 
@@ -54,8 +83,8 @@ final as (
         total_calories_burned,
         total_moderate_intensity_hours,
         total_vigorous_intensity_hours,
-        if(total_moderate_intensity_hours >= 10, 1, 0)  as has_met_monthly_moderate_hours,
-        if(total_vigorous_intensity_hours >= 5, 1, 0)    as has_met_monthly_vigorous_hours,
+        if(total_moderate_intensity_hours >= 10, 1, 0)      as has_met_monthly_moderate_hours,
+        if(total_vigorous_intensity_hours >= 5, 1, 0)       as has_met_monthly_vigorous_hours,
     from counts
 
 )

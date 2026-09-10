@@ -1,11 +1,35 @@
-with hydration_counts as (
+with combinded as (
 
     select
         person_id,
         month,
         year,
-        count(*)                    as total_recorded_hydration_count,
-        sum(caffeine_drink_count)   as total_caffeine_drink_count,
+        caffeine_drink_count,
+        water_intake_oz,
+    -- these records are now archived
+    from {{ ref('stg_daily_hydration') }}
+
+    union all
+
+    select
+        person_id,
+        month,
+        year,
+        caffeine_drink_count,
+        water_intake_oz,
+    -- these records are now live and ongoing data
+    from {{ ref('stg_daily_data_raw') }}
+        
+),
+
+hydration_counts as (
+
+    select
+        person_id,
+        month,
+        year,
+        count(*)                                    as total_recorded_hydration_count,
+        sum(caffeine_drink_count)                   as total_caffeine_drink_count,
         sum(if(water_intake_oz >= 86, 1, 0))        as total_water_goal_intake_count,
     from {{ ref('stg_daily_hydration') }}
     group by 1,2,3

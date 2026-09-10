@@ -1,4 +1,28 @@
-with sleep_amount as (
+with combined as (
+
+    select
+        person_id,
+        month,
+        year,
+        bed_time,
+        wake_up_time,
+        -- archived data
+    from {{ ref('stg_nightly_sleep') }}
+
+    union all
+
+    select
+        person_id,
+        month,
+        year,
+        bed_time,
+        wake_up_time,
+        -- live data
+    from {{ ref('stg_daily_data_raw') }}
+
+),
+
+sleep_amount as (
 
     select
         person_id,
@@ -9,7 +33,7 @@ with sleep_amount as (
                 wake_up_time, bed_time ,minute) + 1440,
             1440
         ) / 60.0 as amount_of_sleep_hours,
-    from {{ ref('stg_nightly_sleep') }}
+    from combined
 
 ),
 
@@ -19,9 +43,9 @@ sleep_counts as (
         person_id,
         month,
         year,
-        count(*)                        as total_recorded_sleep_count,
-        sum(amount_of_sleep_hours)      as total_amount_of_sleep_count,
-        sum(if(amount_of_sleep_hours >= 7, 1, 0)) as total_amount_of_sleep_goal_count,
+        count(*)                                    as total_recorded_sleep_count,
+        sum(amount_of_sleep_hours)                  as total_amount_of_sleep_count,
+        sum(if(amount_of_sleep_hours >= 7, 1, 0))   as total_amount_of_sleep_goal_count,
     from sleep_amount
     group by 1,2,3
 ),

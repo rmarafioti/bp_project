@@ -1,4 +1,26 @@
-with bp_category_counts as (
+with combined as (
+
+    select
+        person_id,
+        month,
+        year,
+        bp_category,
+    -- these records are now archived
+    from {{ ref('stg_bp_readings')}}
+
+    union all
+
+    select
+        person_id,
+        month,
+        year,
+        bp_category,
+    -- these records are now live and ongoing data
+    from {{ ref('stg_daily_data_raw')}}
+
+),
+
+bp_category_counts as (
     
     select
         person_id,
@@ -6,7 +28,7 @@ with bp_category_counts as (
         year,
         bp_category,
         count(bp_category)         as bp_category_count,
-    from {{ ref('stg_bp_readings')}}
+    from combined
     group by 1,2,3,4 
 
 ),

@@ -1,24 +1,58 @@
-with physical_activity_results as (
+with combined as (
+
+    select
+        person_id,
+        date_day,
+        time_of_day,
+        weight,
+        average_heart_rate,
+        physical_activity_distance,
+        physical_activity_duration,
+        calories_burned,
+        physical_activity,
+        physical_activity_intensity,
+    -- archived data
+    from {{ ref('stg_physical_activity') }}
+
+    union all
+
+    select
+        person_id,
+        date_day,
+        physical_activity_time_of_day as time_of_day,
+        weight,
+        average_heart_rate,
+        physical_activity_distance,
+        physical_activity_duration,
+        calories_burned,
+        physical_activity,
+        physical_activity_intensity,
+    -- live data
+    from {{ ref('stg_daily_data_raw') }}
+
+),
+
+physical_activity_results as (
     
     select
-        activity.person_id,
-        activity.date_day,
-        activity.time_of_day,
-        activity.weight,
-        activity.average_heart_rate,
-        activity.physical_activity_distance,
-        activity.physical_activity_duration,
-        activity.calories_burned,
-        activity.physical_activity,
-        activity.physical_activity_intensity,
+        combined.person_id,
+        combined.date_day,
+        combined.time_of_day,
+        combined.weight,
+        combined.average_heart_rate,
+        combined.physical_activity_distance,
+        combined.physical_activity_duration,
+        combined.calories_burned,
+        combined.physical_activity,
+        combined.physical_activity_intensity,
 
         dates.month,
         dates.year,
         dates.week_start_date,
         dates.week_end_date,
-from {{ ref('stg_physical_activity') }} as activity
+from combined
 left join {{ ref('dim_date') }} as dates
-    on activity.date_day = dates.date_day
+    on combined.date_day = dates.date_day
 
 ),
 

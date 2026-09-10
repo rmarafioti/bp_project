@@ -1,4 +1,30 @@
-with hydration as (
+with combined as (
+
+    select
+        person_id,
+        date_day,
+        year,
+        caffeine_drink_count,
+        caffeine_drink_description,
+        water_intake_oz,
+        -- these records are now archived
+    from {{ ref('stg_daily_hydration') }}
+
+    union all
+
+    select
+        person_id,
+        date_day,
+        year,
+        caffeine_drink_count,
+        caffeine_drink_description,
+        water_intake_oz,
+        -- these records are now live and ongoing data
+    from {{ ref('stg_daily_data_raw') }}
+
+),
+
+hydration as (
 
     select
         person_id,
@@ -14,7 +40,7 @@ with hydration as (
             when water_intake_oz >= 65 then 'Moderate Shortfall of Hydration Goal'
             when water_intake_oz < 65 then 'Poor Daily Hydration'
         end as hydration_band
-    from {{ ref('stg_daily_hydration') }}
+    from combined
 
 )
 

@@ -1,4 +1,28 @@
-with sleep_amount as (
+with combined as (
+
+    select
+        person_id,
+        date_day,
+        year,
+        bed_time,
+        wake_up_time,
+        -- archived data
+    from {{ ref('stg_nightly_sleep') }}
+
+    union all
+
+    select
+        person_id,
+        date_day,
+        year,
+        bed_time,
+        wake_up_time,
+        -- live data
+    from {{ ref('stg_daily_data_raw') }}
+
+),
+
+sleep_amount as (
 
     select
         person_id,
@@ -11,7 +35,7 @@ with sleep_amount as (
                 wake_up_time, bed_time ,minute) + 1440,
             1440
         ) / 60.0 as amount_of_nightly_sleep_hours,
-    from {{ ref('stg_nightly_sleep') }}
+    from combined
 
 ),
 
