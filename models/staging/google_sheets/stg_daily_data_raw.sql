@@ -33,6 +33,6 @@ select
         when avg_heart_rate >= 88 then 'Moderate Intensity'
         else 'No Physical Intensity'
     end                                                             as physical_activity_intensity,
-    parse_time('%I:%M:%S %p', bed_time)                             as bed_time,
-    parse_time('%I:%M:%S %p', wake_up_time)                         as wake_up_time,
+    bed_time,
+    wake_up_time,
 from {{ source('google_sheets', 'daily_data_raw') }}

@@ -119,10 +119,10 @@ sources:
           - name: physical_activity_distance
             data_type: float64
           - name: physical_activity_duration
-            data_type: int64
+            data_type: float64
           - name: calories_burned
             data_type: int64
           - name: bed_time
-            data_type: string
+            data_type: time
           - name: wake_up_time
-            data_type: string
+            data_type: time
