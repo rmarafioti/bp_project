@@ -1,4 +1,4 @@
-{% set activity_list = dbt_utils.get_column_values(ref('stg_physical_activity'), 'physical_activity') if execute else [] %}
+{% set activity_list = dbt_utils.get_column_values(ref('int_physical_activity'), 'physical_activity') if execute else [] %}
 
 with month_spine as (
 
@@ -22,9 +22,9 @@ activities as (
         {{ dbt_utils.generate_surrogate_key(['person_id', 'year']) }}       as person_key,
         {{ dbt_utils.generate_surrogate_key(['month', 'year']) }}           as month_key,
         {% for activity in activity_list %}
-        sum(case when physical_activity = '{{ activity }}' then 1 else 0 end) as {{ activity | trim | lower }}_count{% if not loop.last %},{% endif %}
+            sum(case when physical_activity = '{{ activity }}' then 1 else 0 end) as {{ activity | trim | lower | replace(' ', '_') }}_count{% if not loop.last %},{% endif %}
         {% endfor %}
-    from {{ ref('stg_physical_activity') }}
+    from {{ ref('int_physical_activity') }}
     where physical_activity is not null
     group by 1,2
 
