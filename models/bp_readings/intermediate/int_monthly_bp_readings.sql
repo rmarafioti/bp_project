@@ -41,7 +41,7 @@ normal_counts as (
         year,
         bp_category,
         count(bp_category)         as normal_bp_category_count,
-    from {{ ref('stg_bp_readings')}}
+    from combined
     where bp_category = 'Normal'
     group by 1,2,3,4 
 

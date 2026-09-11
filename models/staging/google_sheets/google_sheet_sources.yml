@@ -111,13 +111,13 @@ sources:
           - name: physical_activity_time_of_day
             data_type: string
           - name: daily_weight
-            data_type: int64
+            data_type: float64
           - name: avg_heart_rate
             data_type: int64
           - name: physical_activity
             data_type: string
           - name: physical_activity_distance
-            data_type: int64
+            data_type: float64
           - name: physical_activity_duration
             data_type: int64
           - name: calories_burned
