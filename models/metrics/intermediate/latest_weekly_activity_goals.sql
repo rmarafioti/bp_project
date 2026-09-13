@@ -66,10 +66,10 @@ metrics as (
         week_start_date                                         as metric_period,
         cast(null as string)                                    as metric_reading,
         total_hours                                             as metric_value,
-        case
-            when total_hours > 2.5 then 'Above Weekly Goal'
+        case 
+            when total_hours > 2.5 then concat(total_hours - 2.5, ' Above Weekly Goal')
             when total_hours = 2.5 then 'Met Weekly Goal'
-            when total_hours < 2.5 then 'Below Weekly Goal'
+             when total_hours < 2.5 then concat(2.5 - total_hours, ' Below Weekly Goal')
         end                                                     as metric_label,
         if(total_hours >= 2.5, 1, 0)                            as has_met_goal
     from latest_weekly_activity
@@ -87,9 +87,9 @@ union all
         cast(null as string)                                    as metric_reading,
         total_vigorous_hours                                    as metric_value,
         case
-            when total_vigorous_hours > 1.25 then 'Above Weekly Goal'
+            when total_vigorous_hours > 1.25 then concat(total_vigorous_hours - 1.25, ' Above Weekly Goal')
             when total_vigorous_hours = 1.25 then 'Met Weekly Goal'
-            when total_vigorous_hours < 1.25 then 'Below Weekly Goal'
+            when total_vigorous_hours < 1.25 then concat(1.25 - total_vigorous_hours, ' Below Weekly Goal')
         end                                                     as metric_label,
         if(total_vigorous_hours >= 1.25, 1, 0)                  as has_met_goal
     from full_vigorous_count
