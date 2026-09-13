@@ -1,5 +1,6 @@
 {% for metric_model in [
         "latest_recorded_weight",
+        "latest_weekly_activity_goals"
     ]
 %}
 
